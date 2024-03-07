@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Agrega este permiso -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:label="google_translation_app"
         android:name="${applicationName}"

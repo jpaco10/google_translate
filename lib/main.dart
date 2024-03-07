@@ -5,7 +5,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   GoogleTranslate.initialize(
-    apiKey: "AIzaSyBb6WclCn8RwUQHfAKfQklMg9wNEaZz4-M",
+    apiKey: "AIzaSyBCiLp9BZ1KSI9hw7pu_Iml3j6R_8D0p8g",
     sourceLanguage: "es",
     targetLanguage: "en",
   );
@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
 }
 
 class TranslationPage extends StatefulWidget {
+  const TranslationPage({super.key});
+
   @override
   _TranslationPageState createState() => _TranslationPageState();
 }
@@ -44,7 +46,7 @@ class _TranslationPageState extends State<TranslationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Translation App'),
+        title: const Text('Google Translation App'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -52,7 +54,8 @@ class _TranslationPageState extends State<TranslationPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-              decoration: InputDecoration(labelText: 'Ingresa una palabra'),
+              decoration:
+                  const InputDecoration(labelText: 'Ingresa una palabra'),
               onChanged: (value) {
                 setState(() {
                   _inputText = value;
