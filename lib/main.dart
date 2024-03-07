@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Google Translation App',
       home: TranslationPage(),
     );
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class TranslationPage extends StatefulWidget {
-  const TranslationPage({super.key});
+  const TranslationPage({Key? key}) : super(key: key);
 
   @override
   _TranslationPageState createState() => _TranslationPageState();
@@ -33,12 +34,21 @@ class TranslationPage extends StatefulWidget {
 class _TranslationPageState extends State<TranslationPage> {
   String _inputText = '';
   String _translatedText = '';
+  final TextEditingController _textEditingController = TextEditingController();
 
   void _translateText() {
     _inputText.translate().then((translatedText) {
       setState(() {
         _translatedText = translatedText;
       });
+    });
+  }
+
+  void _clearFields() {
+    setState(() {
+      _inputText = '';
+      _translatedText = '';
+      _textEditingController.clear();
     });
   }
 
@@ -53,26 +63,13 @@ class _TranslationPageState extends State<TranslationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            /*  TextField(
-              decoration:
-                  const InputDecoration(labelText: 'Ingresa una palabra'),
-              onChanged: (value) {
-                setState(() {
-                  _inputText = value;
-                });
-              },
-            ), */
-
             TextField(
-              decoration: InputDecoration(
+              controller: _textEditingController,
+              decoration: const InputDecoration(
                 labelText: 'Ingresa una palabra',
-                border:
-                    OutlineInputBorder(), // Añade un borde alrededor del campo de texto
-                contentPadding: EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal:
-                        10), // Ajusta el relleno interno del campo de texto
-                // Otros ajustes de estilo aquí, como color del texto, color del borde, etc.
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               ),
               onChanged: (value) {
                 setState(() {
@@ -80,15 +77,28 @@ class _TranslationPageState extends State<TranslationPage> {
                 });
               },
             ),
+            SizedBox(height: 40),
+            TextField(
+              readOnly: true, // Para hacer el campo de texto no editable
+              controller: TextEditingController(text: '$_translatedText'),
+              style: TextStyle(fontSize: 18),
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                border:
+                    OutlineInputBorder(), // Agrega un borde alrededor del campo de texto
+                labelText:
+                    'Traducción:', // Agrega una etiqueta al campo de texto
+              ),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _translateText,
               child: Text('TRADUCIR'),
             ),
-            SizedBox(height: 10),
-            Text(
-              'Traducción: $_translatedText',
-              style: TextStyle(fontSize: 18),
+            ElevatedButton(
+              onPressed: _clearFields,
+              child: Text('LIMPIAR CAMPOS'),
             ),
           ],
         ),
