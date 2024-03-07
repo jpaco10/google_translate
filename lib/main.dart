@@ -46,16 +46,34 @@ class _TranslationPageState extends State<TranslationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Google Translation App'),
+        title: const Text('TRADUCTOR'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
+            /*  TextField(
               decoration:
                   const InputDecoration(labelText: 'Ingresa una palabra'),
+              onChanged: (value) {
+                setState(() {
+                  _inputText = value;
+                });
+              },
+            ), */
+
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Ingresa una palabra',
+                border:
+                    OutlineInputBorder(), // Añade un borde alrededor del campo de texto
+                contentPadding: EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal:
+                        10), // Ajusta el relleno interno del campo de texto
+                // Otros ajustes de estilo aquí, como color del texto, color del borde, etc.
+              ),
               onChanged: (value) {
                 setState(() {
                   _inputText = value;
@@ -65,9 +83,9 @@ class _TranslationPageState extends State<TranslationPage> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _translateText,
-              child: Text('Traducir'),
+              child: Text('TRADUCIR'),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Text(
               'Traducción: $_translatedText',
               style: TextStyle(fontSize: 18),
